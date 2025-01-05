@@ -1,6 +1,8 @@
 import OpenAI from 'openai';
 import { AgentMemory } from './AgentMemory';
 import { AgentAction } from './types';
+import { deliveryService } from '../delivery/DeliveryService';
+import { DeliveryItem } from '../delivery/types';
 
 export class AgentCore {
   private openai: OpenAI;
@@ -63,5 +65,36 @@ export class AgentCore {
         // Make budget adjustments
         break;
     }
+  }
+
+  async handleGroceryRefill(items: DeliveryItem[]): Promise<void> {
+    try {
+      // Determine best delivery provider based on items and urgency
+      const provider = this.determineBestProvider(items);
+      
+      // Place order
+      const order = await deliveryService.placeOrder(items, provider);
+      
+      // Store in memory
+      await this.memory.storeAction({
+        type: 'grocery_order',
+        orderId: order.id,
+        items: order.items,
+        provider: order.provider.name,
+        estimatedDelivery: order.estimatedDelivery
+      });
+    } catch (error) {
+      console.error('Failed to handle grocery refill:', error);
+      throw error;
+    }
+  }
+
+  private determineBestProvider(items: DeliveryItem[]): string {
+    // Implement logic to choose best provider based on:
+    // - Item urgency
+    // - Total order value
+    // - Provider availability
+    // - Delivery time
+    return 'glovo'; // For now, default to Glovo
   }
 } 
