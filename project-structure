@@ -1,0 +1,11 @@
+HomeAI/
+├── src/
+│   ├── components/
+│   ├── screens/
+│   ├── navigation/
+│   ├── services/
+│   ├── store/
+│   ├── theme/
+│   └── utils/
+├── App.tsx
+└── package.json 

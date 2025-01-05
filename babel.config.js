@@ -1,8 +1,15 @@
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
-    '@babel/plugin-transform-nullish-coalescing-operator',
-    '@babel/plugin-transform-class-properties',
-    '@babel/plugin-transform-optional-chaining'
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+        alias: {
+          '@': './src'
+        }
+      }
+    ]
   ]
 }; 

@@ -9,13 +9,13 @@ interface AgentContextType {
   executeAction: (action: AgentAction) => Promise<void>;
 }
 
-const defaultContext = {
+const defaultContext: AgentContextType = {
   isProcessing: false,
   lastAction: null,
-  executeAction: async () => {}
+  executeAction: async (action: AgentAction) => {}
 };
 
-const AgentContext = React.createContext(defaultContext);
+const AgentContext = React.createContext<AgentContextType>(defaultContext);
 
 export const AgentProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const agent = useRef(new AgentCore(process.env.OPENAI_API_KEY || ''));
@@ -57,6 +57,6 @@ export const AgentProvider = ({ children }: { children: JSX.Element | JSX.Elemen
   );
 };
 
-export const useAgent = () => {
+export const useAgent = (): AgentContextType => {
   return useContext(AgentContext);
 }; 

@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RootStackParamList, TabParamList } from './types';
 
-import Dashboard from '../screens/Dashboard';
+import { Dashboard } from '../screens/Dashboard';
 import TaskManager from '../screens/TaskManager';
 import GroceryManager from '../screens/GroceryManager';
 import BudgetTracker from '../screens/BudgetTracker';
@@ -35,7 +35,7 @@ const TabNavigator = () => {
               break;
           }
 
-          return MaterialCommunityIcons.getImageSource(iconName, size, color);
+          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
         },
       })}
     >

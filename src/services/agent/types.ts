@@ -3,7 +3,7 @@ export type AgentActionType = 'suggest_task' | 'order_groceries' | 'adjust_budge
 export interface AgentAction {
   type: AgentActionType;
   payload?: unknown;
-  reason?: string;
+  reason: string;
 }
 
 export interface AgentGoal {
